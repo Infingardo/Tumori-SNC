@@ -93,6 +93,22 @@ MOL_TESTS = {
     "ZFTA_fusion": ["ZFTA fusion"],
     "CTNNB1_mut": ["CTNNB1 sequencing"],
 }
+# ---------- LEGEND: sigla → nome completo ----------
+LEGEND = {
+    "PXA": "Xantoastrocitoma pleomorfo",
+    "GBM": "Glioblastoma IDH-wt",
+    "IDH-Astro": "Astrocitoma IDH-mutato",
+    "ODG": "Oligodendroglioma IDH-mut 1p/19q",
+    "DMG": "Diffuse midline glioma H3 K27-alt",
+    "DHG-G34": "Diffuse hemispheric glioma H3 G34-mut",
+    "PA": "Astrocitoma pilocitico",
+    "GG": "Ganglioglioma",
+    "EP-ZFTA": "Ependimoma ZFTA-fusion",
+    "EP-PFA": "Ependimoma PFA",
+    "MB-WNT": "Medulloblastoma WNT",
+    "AT/RT": "Atypical Teratoid/Rhabdoid Tumour",
+}
+# ---------------------------------------------------
 
 # ===== helper =====
 def match_morph(m):
