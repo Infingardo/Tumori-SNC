@@ -184,4 +184,10 @@ if ss.ihc_res and ss.dx:
                 ss.dx=refine_mol(ss.dx,mol)
 
 if ss.mol_res and ss.dx:
-    st.success("Final dx: "+", ".join(ss.dx))
+    st.success("Final dx: "+", ".join(ss.dx)) 
+        # --- Legenda delle sigle -----------------
+    st.markdown("### ℹ️ Legenda sigle")
+    for abbr, full in LEGEND.items():
+        st.markdown(f"- **{abbr}** = {full}")
+    # -----------------------------------------
+
