@@ -1,5 +1,5 @@
 import streamlit as st
-from diagnostic_engine import (
+from modular.diagnostic_engine import (
     match_morphology,
     refine_ihc,
     refine_mol,
