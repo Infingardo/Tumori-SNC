@@ -1,52 +1,110 @@
 import streamlit as st
 
-st.set_page_config(page_title="CNS Tumour Diagnostic Assistant", page_icon="🧠")
-
-st.title("🧠 CNS Tumour Diagnostic Assistant")
-st.subheader("WHO CNS5 (2021) – Diagnosi guidata (versione demo)")
-
-# Selezione età
-age_group = st.radio(
-    "1️⃣ Fascia d'età del paziente:",
-    ["Adulto", "Pediatrico"],
-    index=0
+st.set_page_config(
+    page_title="CNS Tumour Diagnostic Assistant EXTENDED+",
+    page_icon="🧠",
 )
 
-if age_group == "Adulto":
-    st.write("👉 Tumori cerebrali dell'adulto")
-    
-    infiltration = st.radio(
-        "2️⃣ Pattern di crescita:",
-        ["Diffuso", "Non diffuso"]
-    )
-    
-    if infiltration == "Diffuso":
-        st.write("👉 Analisi molecolare")
-        
-        idh_status = st.radio("IDH status:", ["IDH-mutato", "IDH-wildtype"])
-        
-        if idh_status == "IDH-mutato":
-            atrx_status = st.radio("ATRX:", ["Perdita", "Conservato"])
-            if atrx_status == "Perdita":
-                st.success("🔬 **Diagnosi suggerita:** Astrocitoma diffuso IDH-mutato (probabile).")
-                st.info("Suggeriti: valutazione TP53, grading istologico.")
-            else:
-                codeletion = st.radio("1p/19q codelezione:", ["Presente", "Assente"])
-                if codeletion == "Presente":
-                    st.success("🔬 **Diagnosi suggerita:** Oligodendroglioma IDH-mutato, 1p/19q codeleted.")
-                else:
-                    st.warning("Possibile astrocitoma IDH-mutato con ATRX conservato: confermare con TP53.")
-        
-        else:  # IDH-wildtype
-            st.warning("Considera gli high-grade: GBM IDH-wildtype? AAP e alterazioni TERT/EGFR?")
-            st.info("Suggeriti: MGMT, TERT, EGFR, + imaging clinico.")
-            
-    else:
-        st.write("👉 Per forme non diffuse, vanno considerate entità circoscritte (es. piloide, ganglioglioma).")
-        st.info("Consulta la sezione corrispondente nel WHO CNS5.")
-        
-else:
-    st.warning("🚧 Sezione tumori pediatrici in sviluppo.")
+st.title("🧠 Assistente Diagnostico Tumori SNC – WHO CNS5 (Extended Plus)")
+st.caption("Educational demo – Non usare per scopi clinici. Filippo x ChatGPT 2025 🧬")
 
+# ============================
+# 1️⃣ Informazioni clinico-morfologiche
+# ============================
+
+st.header("1️⃣ Caratteristiche clinico-morfologiche")
+
+sede = st.selectbox("Seleziona la sede:", ["Lobo frontale", "Cervelletto", "Tronco encefalico", "Midollo spinale"])
+pattern = st.selectbox("Pattern di crescita:", ["Diffuso", "Circoscritto", "Multi-focale"])
+età = st.radio("Fascia d'età:", ["Pediatrico", "Adulto"])
+
+st.write(f"**Ipotesi iniziale:**")
+if sede == "Cervelletto" and età == "Pediatrico":
+    st.success("🟢 Possibile Astrocitoma pilocitico o Ependimoma posteriore.")
+elif sede == "Lobo frontale" and pattern == "Diffuso":
+    st.success("🟢 Considerare Astrocitoma diffuso o Oligodendroglioma.")
+else:
+    st.info("ℹ️ Consulta pattern più rari: Medulloblastoma? Tumori embrionali?")
+
+# ============================
+# 🔬 Immagine istologica (placeholder)
+# ============================
+
+st.header("📸 Immagine istologica di esempio")
+
+st.image(
+    "assets/sample_histology.png",
+    caption="Sezione istologica esemplificativa – H&E",
+    use_container_width=True
+)
+
+st.info("👉 Sostituisci 'sample_histology.png' in assets/ con una microfotografia reale o diagramma schematico.")
+
+# ============================
+# 2️⃣ Pannello Immunoistochimico
+# ============================
+
+st.header("2️⃣ Pannello Immunoistochimico")
+
+st.image(
+    "assets/atrx_braf_marker.png",
+    caption="Pattern ATRX/BRAF – WHO CNS5",
+    use_container_width=True
+)
+
+st.write("**Indica i risultati IHC:**")
+
+atrx_status = st.radio("ATRX:", ["Perdita", "Conservato"])
+braf_status = st.radio("BRAF:", ["Mutato", "Non mutato"])
+
+if atrx_status == "Perdita" and braf_status == "Mutato":
+    st.success("🔬 **Ipotesi ristretta:** Astrocitoma pilocitico BRAF-mutato (CNS WHO grade I).")
+    st.info("📌 Suggeriti: FISH BRAF/KIAA1549, conferma con IHC di supporto.")
+elif atrx_status == "Perdita" and braf_status == "Non mutato":
+    st.success("🔬 **Ipotesi ristretta:** Astrocitoma diffuso IDH-mutato, ATRX loss.")
+elif atrx_status == "Conservato" and braf_status == "Mutato":
+    st.success("🔬 **Ipotesi ristretta:** Possibile ganglioglioma BRAF-mutato.")
+else:
+    st.warning("⚡ Profila ulteriormente: MGMT, IDH1 R132H, p53?")
+
+# ============================
+# 3️⃣ Studi Molecolari Avanzati
+# ============================
+
+st.header("3️⃣ Studi Molecolari Avanzati")
+
+if st.checkbox("Visualizza suggerimenti di studio molecolare"):
+    st.write("""
+    - **IDH1/2** mutational status
+    - **1p/19q codelezione** (se indicato)
+    - **MGMT metilazione**
+    - **H3K27M** (in forme pediatriche o midollo)
+    """)
+    st.link_button(
+        "📖 Capitolo WHO CNS5 – Sito IARC",
+        "https://www.iarc.who.int/news-events/who-classification-of-tumours-5th-edition-volume-6-central-nervous-system-tumours-2/"
+    )
+    st.link_button(
+        "📑 Scarica WHO Blue Book CNS5 (se hai accesso)",
+        "https://publications.iarc.fr/632"
+    )
+
+# ============================
+# 📚 Riferimenti Bibliografici
+# ============================
+
+with st.expander("📚 Riferimenti bibliografici"):
+    st.markdown("""
+    1. WHO Classification of Tumours Editorial Board. *Central Nervous System Tumours*, 5th ed., IARC, Lyon, 2021.
+    2. Louis DN et al. *The 2021 WHO Classification of Tumors of the Central Nervous System: a summary*. Neuro-Oncology, 2021.
+    3. Brat DJ, Aldape K, et al. *Molecular Pathology of CNS Tumors*. J Neuropathol Exp Neurol. 2021.
+    """)
+
+# ============================
 # Footer
+# ============================
+
 st.caption("Educational demo – Non usare per scopi clinici. Versione Filippo x ChatGPT 2025 🧬")
+
+
+

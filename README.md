@@ -1,2 +1,2 @@
-# Tumori-SNC
-Algoritmo decisionale tumori SNC
+source venv/bin/activate
+streamlit run diagnostic_assistant_extended_dev.py
