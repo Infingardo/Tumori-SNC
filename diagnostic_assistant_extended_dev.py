@@ -22,7 +22,7 @@ else:
 
 # Immagine istologica di esempio
 st.image(
-    "assets/sample_histology.png",  # Puoi sostituire con 'rosetta.png' se preferisci
+    "assets/sample_histology.png",  # oppure 'rosetta.png'
     caption="Sezione istologica esemplificativa – H&E",
     use_container_width=True
 )
