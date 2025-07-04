@@ -58,8 +58,8 @@ else:
 # 📚 Riferimenti bibliografici
 with st.expander("📚 Riferimenti bibliografici"):
     st.markdown("""
-- WHO Classification of Tumours Editorial Board. *Central Nervous System Tumours*, 5th ed., IARC, Lyon, 2021.  
-- Louis DN et al. The 2021 WHO Classification of Tumors of the Central Nervous System: a summary. *Neuro-Oncology*, 2021.  
+- WHO Classification of Tumours Editorial Board. *Central Nervous System Tumours*, 5th ed., IARC, Lyon, 2021.
+- Louis DN et al. The 2021 WHO Classification of Tumors of the Central Nervous System: a summary. *Neuro-Oncology*, 2021.
 - Brat DJ, Aldape K, et al. Molecular Pathology of CNS Tumors. *J Neuropathol Exp Neurol*. 2021.
 
 📄 👉 [Scarica WHO CNS5 2021 (Brain)](assets/Brain2021.pdf)
