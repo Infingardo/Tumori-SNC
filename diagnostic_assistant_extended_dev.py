@@ -1,4 +1,3 @@
-
 import streamlit as st
 import os
 
@@ -48,13 +47,7 @@ def genera_ipotesi_iniziale(fascia_eta, pattern, sede):
         return "ℹ️ Ipotesi: valutare correlazione con imaging e clinica."
 
 ipotesi = genera_ipotesi_iniziale(fascia_eta, pattern, sede)
-if "🟢" in ipotesi:
-    st.success(ipotesi)
-elif "🟠" in ipotesi:
-    st.warning(ipotesi)
-else:
-    st.info(ipotesi)
-
+st.success(ipotesi) if "🟢" in ipotesi else st.warning(ipotesi) if "🟠" in ipotesi else st.info(ipotesi)
 
 # Mostra immagine rosetta se pattern circoscritto (con controllo file)
 if pattern == "Circostritto":
@@ -159,11 +152,8 @@ with st.expander("📚 Riferimenti bibliografici"):
     - Eckel-Passow JE et al. Glioma Groups Based on 1p/19q, IDH, and TERT Promoter Mutations. *NEJM*, 2015.
     """)
     
-    # Controllo esistenza file PDF
-    if os.path.exists("assets/Brain2021.pdf"):
-        st.markdown("📄 👉 [Scarica WHO CNS5 2021 (Brain)](assets/Brain2021.pdf)")
-    else:
-        st.warning("📄 File Brain2021.pdf non disponibile in assets/")
+    # Link al documento WHO CNS5 2021
+    st.markdown("📄 👉 [WHO CNS5 2021 - PMC Article](https://pmc.ncbi.nlm.nih.gov/articles/PMC8328013/)")
 
 # Footer
 st.markdown("---")
