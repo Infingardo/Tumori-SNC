@@ -47,13 +47,26 @@ elif idh1 == "Negativo" and tert == "Presente":
 else:
     st.info("Pattern non definito: considera ulteriori test molecolari e correlazione clinica.")
 
-# 📚 Riferimenti bibliografici
+# 📚 Riferimenti bibliografici (con link e PDF)
+import base64
+
 with st.expander("📚 Riferimenti bibliografici"):
+    st.markdown("""
+**WHO Classification of Tumours Editorial Board.**  
+*Central Nervous System Tumours, 5th ed.*, IARC, Lyon, 2021.
+
+**Louis DN et al.**  
+[The 2021 WHO Classification of Tumors of the Central Nervous System: a summary. *Neuro-Oncology*, 2021.](https://academic.oup.com/neuro-oncology/article/23/8/1231/6311214)
+
+**Brat DJ, Aldape K, et al.**  
+[Molecular Pathology of CNS Tumors. *J Neuropathol Exp Neurol.*, 2021.](https://academic.oup.com/jnen/article/80/7/629/6311293)
+    """, unsafe_allow_html=True)
+
     try:
         with open("assets/Brain2021.pdf", "rb") as f:
             pdf_data = f.read()
             b64 = base64.b64encode(pdf_data).decode()
-            href = f'<a href="data:application/octet-stream;base64,{b64}" download="Brain2021.pdf">Scarica WHO CNS5 2021 (Brain)</a>'
+            href = f'<a href="data:application/octet-stream;base64,{b64}" download="Brain2021.pdf">📄 Scarica WHO CNS5 2021 (Brain PDF)</a>'
             st.markdown(href, unsafe_allow_html=True)
     except FileNotFoundError:
-        st.error("PDF non trovato. Controlla di avere 'Brain2021.pdf' in assets/.")
+        st.error("PDF non trovato. Controlla che 'Brain2021.pdf' sia in assets/.")
