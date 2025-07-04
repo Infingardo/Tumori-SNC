@@ -47,10 +47,13 @@ elif idh1 == "Negativo" and tert == "Presente":
 else:
     st.info("Pattern non definito: considera ulteriori test molecolari e correlazione clinica.")
 
-# 📚 Riferimenti bibliografici (link PDF)
+# 📚 Riferimenti bibliografici
 with st.expander("📚 Riferimenti bibliografici"):
-    st.markdown("[Scarica WHO CNS5 2021 (Brain)](assets/Brain2021.pdf)")
-
-# Footer
-st.caption("---")
-st.caption("Educational demo – Non usare per scopi clinici. Filippo x ChatGPT 2025 🧬")
+    try:
+        with open("assets/Brain2021.pdf", "rb") as f:
+            pdf_data = f.read()
+            b64 = base64.b64encode(pdf_data).decode()
+            href = f'<a href="data:application/octet-stream;base64,{b64}" download="Brain2021.pdf">Scarica WHO CNS5 2021 (Brain)</a>'
+            st.markdown(href, unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error("PDF non trovato. Controlla di avere 'Brain2021.pdf' in assets/.")
