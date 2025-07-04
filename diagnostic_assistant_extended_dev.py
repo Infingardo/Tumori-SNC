@@ -47,7 +47,14 @@ def genera_ipotesi_iniziale(fascia_eta, pattern, sede):
         return "ℹ️ Ipotesi: valutare correlazione con imaging e clinica."
 
 ipotesi = genera_ipotesi_iniziale(fascia_eta, pattern, sede)
-st.success(ipotesi) if "🟢" in ipotesi else st.warning(ipotesi) if "🟠" in ipotesi else st.info(ipotesi)
+
+# Mostra l'ipotesi con il colore appropriato
+if "🟢" in ipotesi:
+    st.success(ipotesi)
+elif "🟠" in ipotesi:
+    st.warning(ipotesi)
+else:
+    st.info(ipotesi)
 
 # Mostra immagine rosetta se pattern circoscritto (con controllo file)
 if pattern == "Circostritto":
